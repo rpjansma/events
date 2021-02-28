@@ -3,6 +3,8 @@
 const mongoose = require('mongoose')
 const Event = mongoose.model('Event')
 
+const ValidationContract = require('../validation/contractValidators.js')
+
 exports.get = (req, res, next) => {
   Event
     .find({}, "title creationDate")
@@ -23,7 +25,16 @@ exports.getById = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
-  const event = new Event();
+  let contract = new ValidationContract();
+  contract.hasMinLen(req.body.title, 2, 'The title has 2 characters min length. Please send a correct req body.');
+  contract.hasMinLen(req.body.description, 10, 'The description has 10 characters min length. Please send a correct req body.');
+
+  if (!contract.isValid()) {
+    res.status(400).send(contract.errors()).end();
+    return;
+  }
+
+  let event = new Event();
   event.title = req.body.title;
   event.description = req.body.description;
   event.date = req.body.date;
@@ -41,6 +52,10 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
+  let contract = new ValidationContract();
+  contract.hasMinLen(req.body.title, 2, 'O título deve ter pelo menos 2 caracteres');
+  contract.hasMinLen(req.body.description, 10, 'A descrição deve ter pelo menos 10 caracteres');
+
   const id = req.params._id;
   Event
     .findByIdAndUpdate(req.params.id, {
