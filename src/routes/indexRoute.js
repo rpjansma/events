@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-//Rota de teste para validação da API
+//Test route
 const route = router.get('/', (req, res, next) => {
   res.status(200).send({
     title: "Calendar API",
