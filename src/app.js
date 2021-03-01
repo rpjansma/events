@@ -9,7 +9,8 @@ const app = express();
 mongoose.connect('mongodb+srv://db_user:dbpassword@calendar.xrt8t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 
 //Models load
-const Event = require('./models/events.js')
+const Event = require('./models/eventModel.js')
+const User = require('./models/userModel.js')
 
 //Routes load
 const indexRoutes = require('./routes/indexRoute')

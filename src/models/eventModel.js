@@ -12,21 +12,28 @@ const schema = new Schema({
 
   initialDate: {
     type: Date,
-    default: Date.now //todo: correct later
+    required: true
   },
 
   finalDate: {
     type: Date,
-    default: Date.now //todo: correct later
+    required: true
   },
+
   creationDate: {
     type: Date,
-    default: Date.now //todo: correct later
+    required: true,
+    default: Date.now
   },
 
   description: {
     type: String,
     required: true,
+  },
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
