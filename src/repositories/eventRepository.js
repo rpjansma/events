@@ -3,22 +3,22 @@
 const mongoose = require('mongoose')
 const Event = mongoose.model('Event')
 
-exports.get = async() => {
+exports.get = async () => {
   const res = await Event.find({}, "title creationDate");
   return res;
 }
 
-exports.getById = async(id) => {
+exports.getById = async (id) => {
   const res = await Event.findById(id);
   return res;
 }
 
-exports.create = async(data) => {
+exports.create = async (data) => {
   let event = new Event(data);
   await event.save();
 }
 
-exports.update = async(id, data) => {
+exports.update = async (id, data) => {
   await Event
     .findByIdAndUpdate(id, {
       $set: {
@@ -30,6 +30,6 @@ exports.update = async(id, data) => {
     })
 }
 
-exports.delete = async(id) => {
+exports.delete = async (id) => {
   await Event.findOneAndDelete(id);
 }

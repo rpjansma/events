@@ -35,10 +35,12 @@ exports.post = async (req, res, next) => {
   }
 
   try {
-    await repository.create(req.body)
-    res.status(201).send({ message: "Event create successfully. :)" })
+    await repository.create(req.body);
+    res.status(201).send({ message: "Event created successfully. :)" })
   } catch (error) {
-    sendError500();
+    res.status(500).send({
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+    });
   }
 }
 
