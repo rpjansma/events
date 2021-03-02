@@ -3,10 +3,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
+const config = require('./config.js')
 
 const app = express();
 
-mongoose.connect('mongodb+srv://db_user:dbpassword@calendar.xrt8t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+mongoose.connect(config.connectionString);
 
 //Models load
 const Event = require('./models/eventModel.js')
