@@ -1,8 +1,8 @@
 'use strict';
 
+const ValidationContract = require('../validation/contractValidators.js')
 const repository = require('../repositories/eventRepository.js')
 
-const ValidationContract = require('../validation/contractValidators.js')
 
 exports.get = async (req, res, next) => {
   try {
