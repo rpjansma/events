@@ -10,7 +10,9 @@ exports.get = async (req, res, next) => {
     res.status(200).send(data);
 
   } catch (error) {
-    sendError500();
+    res.status(500).send({
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+    });
   }
 
 }
@@ -20,7 +22,9 @@ exports.getById = async (req, res, next) => {
     let data = await repository.getById(req.params.id)
     res.status(200).send(data);
   } catch (error) {
-    sendError500();
+    res.status(500).send({
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+    });
   }
 }
 
@@ -39,7 +43,8 @@ exports.post = async (req, res, next) => {
     res.status(201).send({ message: "Event created successfully. :)" })
   } catch (error) {
     res.status(500).send({
-      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!',
+      error: error
     });
   }
 }

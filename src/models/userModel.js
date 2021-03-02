@@ -10,7 +10,7 @@ const schema = new Schema({
   },
 
   email: {
-    type: Date,
+    type: String,
   },
 
   password: {
