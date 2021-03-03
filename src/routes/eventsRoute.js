@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const controller = require('../controllers/eventController.js')
+const authService = require('../services/authService')
 
 const app = express();
 const router = express.Router();
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //CRUD actions delegated to Controller
 router.get('/', controller.get);
 router.get('/:id', controller.getById);
-router.post('/', controller.post);
+router.post('/', authService.authorize, controller.post);
 router.put('/:id', controller.put);
 router.delete('/', controller.delete);
 

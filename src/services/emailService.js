@@ -1,7 +1,7 @@
 'use strict';
 
-const config = require('../config.js')
-const sendgrid = require('sendgrid')(config.sendgridKey);
+let config = require('../config.js')
+let sendgrid = require('sendgrid')(config.sendgridKey);
 
 exports.send = async (to, subject, body) => {
   sendgrid.send({
@@ -9,5 +9,5 @@ exports.send = async (to, subject, body) => {
     from: 'calendar@api.com',
     subject: subject,
     html: body
-  })
+  });
 }

@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //CRUD actions delegated to Controller
 router.get('/', controller.get);
 router.post('/', controller.post);
+router.post('/authenticate', controller.authenticate)
 router.delete('/', controller.delete);
 
 module.exports = router;
