@@ -38,8 +38,9 @@ exports.post = async (req, res, next) => {
       email: req.body.email,
       password: md5(req.body.password + global.SALT_KEY)
     });
+    console.log(global.SALT_KEY)
 
-    emailService.send(req.body.email, 'Calendar API', global.EMAIL_TMPL.replace('{0}', req.body.name));
+    emailService.send(req.body.email, 'Calendar API', 'teste');
 
     res.status(201).send({
       message: "User created successfully. :)"
