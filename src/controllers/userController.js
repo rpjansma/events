@@ -38,9 +38,11 @@ exports.post = async (req, res, next) => {
       email: req.body.email,
       password: md5(req.body.password + global.SALT_KEY)
     });
-    console.log(global.SALT_KEY)
 
-    emailService.send(req.body.email, 'Calendar API', 'teste');
+    //emailService.send(
+    //  req.body.email,
+    //  'Calendar API',
+    //  global.EMAIL_TMPL.replace('{0}', req.body.name));
 
     res.status(201).send({
       message: "User created successfully. :)"
@@ -57,10 +59,10 @@ exports.authenticate = async (req, res, next) => {
   try {
     const user = await repository.authenticate({
       email: req.body.email,
-      password: md5(req.body.password)
+      password: md5(req.body.password + global.SALT_KEY)
     });
 
-    if (!customer) {
+    if (!user) {
       res.status(404).send({
         message: 'Invalid user or password.'
       });
@@ -68,6 +70,7 @@ exports.authenticate = async (req, res, next) => {
     }
 
     const token = await authService.generateToken({
+      id: user._id,
       email: user.email,
       name: user.name
     })

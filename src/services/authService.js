@@ -3,16 +3,16 @@
 const jwt = require('jsonwebtoken');
 
 exports.generateToken = async (data) => {
-  return jwt.sign(data, global.SALT_KEY, { expiresIn: '10m' });
+  return jwt.sign(data, global.SALT_KEY, { expiresIn: '30m' });
 };
 
 exports.decodeToken = async (token) => {
-  let data = await jwt.verify(token, global.SALT_KEY);
-  return data
+  const data = await jwt.verify(token, global.SALT_KEY);
+  return data;
 };
 
 exports.authorize = function (req, res, next) {
-  let token = req.body.token || req.query.token || req.headers[x - access - token];
+  let token = req.body.token || req.query.token || req.headers['x - access - token'];
 
   if (!token) {
     res.status(401).json({

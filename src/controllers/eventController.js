@@ -2,6 +2,7 @@
 
 const ValidationContract = require('../validation/contractValidators.js')
 const repository = require('../repositories/eventRepository.js')
+const authService = require('../services/authService')
 
 
 exports.get = async (req, res, next) => {
@@ -39,6 +40,10 @@ exports.post = async (req, res, next) => {
   }
 
   try {
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    let data = await authService.decodeToken(token);
+
     await repository.create(req.body);
     res.status(201).send({ message: "Event created successfully. :)" })
   } catch (error) {
