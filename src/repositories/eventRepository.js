@@ -31,5 +31,6 @@ exports.update = async (id, data) => {
 }
 
 exports.delete = async (id) => {
-  await Event.findOneAndDelete(id);
+  await Event
+    .findOneAndRemove(id);
 }

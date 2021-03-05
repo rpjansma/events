@@ -30,7 +30,7 @@ exports.getById = async (req, res, next) => {
 }
 
 exports.post = async (req, res, next) => {
-  let contract = new ValidationContract();
+  const contract = new ValidationContract();
   contract.hasMinLen(req.body.title, 2, 'Title should have a minimum of 2 characters.');
   contract.hasMinLen(req.body.description, 10, 'Description must have a text of 10 characters at least.');
 
@@ -40,9 +40,9 @@ exports.post = async (req, res, next) => {
   }
 
   try {
-    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    let data = await authService.decodeToken(token);
+    const data = await authService.decodeToken(token);
 
     await repository.create(req.body);
     res.status(201).send({ message: "Event created successfully. :)" })
@@ -55,7 +55,7 @@ exports.post = async (req, res, next) => {
 }
 
 exports.put = async (req, res, next) => {
-  let contract = new ValidationContract();
+  const contract = new ValidationContract();
   contract.hasMinLen(req.body.title, 2, 'Title should have a minimum of 2 characters.');
   contract.hasMinLen(req.body.description, 10, 'Description must have a text of 10 characters at least.');
 
@@ -70,23 +70,22 @@ exports.put = async (req, res, next) => {
       message: 'Event updated successfully. :)'
     })
   } catch (e) {
-    sendError500();
+    res.status(500).send({
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+    });
   }
 }
 
 exports.delete = async (req, res, next) => {
   try {
-    await repository.delete()
+    await repository.delete(req.body.id);
     res.status(200).send({
       message: 'Event removed successfully.'
     });
   } catch (error) {
-    sendError500();
+    res.status(500).send({
+      message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
+    });
   }
 };
 
-function sendError500() {
-  res.status(500).send({
-    message: 'We have a failure while trying to make your requisition happen. Sorry, try again!'
-  });
-}

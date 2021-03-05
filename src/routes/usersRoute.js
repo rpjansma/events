@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 router.get('/', controller.get);
 router.post('/', controller.post);
 router.post('/authenticate', controller.authenticate)
+router.post('/refresh-token', controller.refreshToken)
 router.delete('/', controller.delete);
 
 module.exports = router;

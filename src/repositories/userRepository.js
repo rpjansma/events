@@ -8,6 +8,12 @@ exports.get = async () => {
   return res;
 }
 
+exports.getById = async (id) => {
+  const res = await User.findById(id);
+  return res;
+}
+
+
 exports.authenticate = async (data) => {
   const res = await User.findOne({
     email: data.email,
@@ -22,5 +28,6 @@ exports.create = async (data) => {
 }
 
 exports.delete = async (id) => {
-  await User.findOneAndDelete(id);
+  await User
+    .findOneAndRemove(id);
 }
