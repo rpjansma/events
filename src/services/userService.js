@@ -2,10 +2,12 @@
 
 const ValidationContract = require('../validation/contractValidators.js')
 const repository = require('../repositories/userRepository.js')
+const authService = require('../services/authService');
+
 const md5 = require('md5')
 
 
-exports.getAllUsers = async () => {
+exports.getAllUsers = async (res) => {
   let data = await repository.get()
   return res.status(200).send(data);
 };
@@ -27,10 +29,73 @@ exports.createUser = async (data, res) => {
     name: data.name,
     email: data.email,
     password: md5(data.password + global.SALT_KEY),
-    roles:["user"]
+    roles: ["user"]
   });
 
   res.status(201).send({
     message: "User created successfully. :)"
+  });
+};
+
+exports.authenticateUser = async (data, res) => {
+  const user = await repository.authenticate({
+    email: data.email,
+    password: md5(data.password + global.SALT_KEY),
+  });
+
+  if (!user) {
+    res.status(404).send({
+      message: 'Invalid user or password.'
+    });
+    return;
+  }
+
+  const token = await authService.generateToken({
+    id: user._id,
+    email: user.email,
+    name: user.name
+  })
+
+  res.status(201).send({
+    token: token,
+    data: {
+      email: user.email,
+      name: user.name,
+      role: user.roles
+    }
+  });
+}
+
+exports.refreshUserToken = async (data, token, res) => {
+  const dataToken = await authService.decodeToken(token);
+
+  const user = await repository.getById(dataToken.id);
+
+  if (!user) {
+    res.status(404).send({
+      message: 'Invalid user or password.'
+    });
+    return;
+  }
+
+  const tokenData = await authService.generateToken({
+    id: user._id,
+    email: user.email,
+    name: user.name
+  })
+
+  res.status(201).send({
+    token: token,
+    data: {
+      email: user.email,
+      name: user.name
+    }
+  });
+}
+
+exports.deleteUser = async (data, res) => {
+  await repository.delete(data.id);
+  res.status(200).send({
+    message: 'User removed successfully.'
   });
 };
