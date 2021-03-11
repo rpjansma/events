@@ -14,7 +14,7 @@ exports.getAllUsers = async (res) => {
 
 exports.dataValidation = (data, res) => {
   let contract = new ValidationContract();
-  contract.hasMinLen(data.name, 3, 'Name should have a minimum of 3 characters.');
+  contract.hasMinLen(data.username, 3, 'Name should have a minimum of 3 characters.');
   contract.hasMinLen(data.password, 6, 'Password should have a minimum of 6 characters.');
   contract.isEmail(data.email, 'Invalid e-mail.');
 
@@ -26,7 +26,7 @@ exports.dataValidation = (data, res) => {
 
 exports.createUser = async (data, res) => {
   await repository.create({
-    name: data.name,
+    username: data.username,
     email: data.email,
     password: md5(data.password + global.SALT_KEY),
     roles: ["user"]
@@ -39,7 +39,7 @@ exports.createUser = async (data, res) => {
 
 exports.authenticateUser = async (data, res) => {
   const user = await repository.authenticate({
-    email: data.email,
+    username: data.username,
     password: md5(data.password + global.SALT_KEY),
   });
 
@@ -53,14 +53,14 @@ exports.authenticateUser = async (data, res) => {
   const token = await authService.generateToken({
     id: user._id,
     email: user.email,
-    name: user.name
+    username: user.username
   })
 
   res.status(201).send({
     token: token,
     data: {
       email: user.email,
-      name: user.name,
+      username: user.username,
       role: user.roles
     }
   });
@@ -81,14 +81,14 @@ exports.refreshUserToken = async (data, token, res) => {
   const tokenData = await authService.generateToken({
     id: user._id,
     email: user.email,
-    name: user.name
+    username: user.username
   })
 
   res.status(201).send({
     token: token,
     data: {
       email: user.email,
-      name: user.name
+      username: user.username
     }
   });
 }
