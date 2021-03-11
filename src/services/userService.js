@@ -44,7 +44,7 @@ exports.authenticateUser = async (data, res) => {
   });
 
   if (!user) {
-    res.status(404).send({
+    res.status(401).send({
       message: 'Invalid user or password.'
     });
     return;
@@ -72,7 +72,7 @@ exports.refreshUserToken = async (data, token, res) => {
   const user = await repository.getById(dataToken.id);
 
   if (!user) {
-    res.status(404).send({
+    res.status(401).send({
       message: 'Invalid user or password.'
     });
     return;
