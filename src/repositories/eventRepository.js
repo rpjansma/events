@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const Event = mongoose.model('Event')
 
 exports.get = async () => {
-  const res = await Event.find({}, "title creationDate");
+  const res = await Event.find({});
   return res;
 }
 

@@ -56,6 +56,8 @@ exports.authenticateUser = async (data, res) => {
     username: user.username
   })
 
+  res.setHeader('x-access-token', token); 
+
   res.status(201).send({
     token: token,
     data: {
