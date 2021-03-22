@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const ValidationContract = require('../validation/contractValidators.js');
-const repository = require('../repositories/eventRepository.js');
-const authService = require('../services/authService');
+const ValidationContract = require("../validation/contractValidators.js");
+const repository = require("../repositories/eventRepository.js");
+const authService = require("../services/authService");
 
 exports.getAllEvents = async (res) => {
   let data = await repository.get();
@@ -15,7 +15,6 @@ exports.getEventById = async (data, res) => {
 };
 
 exports.createEvent = async (data, token, res) => {
-
   const dataToken = await authService.decodeToken(token);
 
   await repository.create(data);
@@ -23,36 +22,37 @@ exports.createEvent = async (data, token, res) => {
 };
 
 exports.updateEvent = async (id, data, token, res) => {
-
   const dataToken = await authService.decodeToken(token);
 
-  await repository.update(id, data)
+  await repository.update(id, data);
   res.status(200).send({
-    message: 'Event updated successfully. :)'
-  })
+    message: "Event updated successfully. :)",
+  });
 };
 
 exports.deleteEventById = async (id, res) => {
   if (!id) {
     res.status(400).send({
-      message: 'Please inform the event Id you want to delete.'
+      message: "Please inform the event Id you want to delete.",
     });
   }
 
   await repository.delete(id);
   res.status(200).send({
-    message: 'Event removed successfully.'
+    message: "Event removed successfully.",
   });
 };
 
 exports.validateEventData = (data, res) => {
   const contract = new ValidationContract();
-  contract.hasMinLen(data.title, 2, 'Title should have a minimum of 2 characters.');
-  contract.hasMinLen(data.description, 10, 'Description must have a text of 10 characters at least.');
+  contract.hasMinLen(
+    data.title,
+    2,
+    "Title should have a minimum of 2 characters."
+  );
 
   if (!contract.isValid()) {
     res.status(400).send(contract.errors()).end();
     return;
   }
 };
-

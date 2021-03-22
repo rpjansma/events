@@ -46,7 +46,7 @@ exports.put = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
-    eventService.deleteEventById(req.body.id, res);
+    eventService.deleteEventById(req.params.id, res);
   } catch (error) {
     errorResponse.error500(res);
   }

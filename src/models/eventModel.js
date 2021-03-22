@@ -16,11 +16,6 @@ const schema = new Schema({
     trim: true
   },
 
-  description: {
-    type: String,
-    required: true,
-  },
-
   start: {
     type: Date,
     required: true
