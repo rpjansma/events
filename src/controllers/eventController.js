@@ -2,7 +2,7 @@
 
 const ValidationContract = require("../validation/contractValidators.js");
 const repository = require("../repositories/eventRepository.js");
-const errorResponse = require('../services/errorResponse');
+const errorResponse = require("../services/errorResponse");
 const eventService = require("../services/eventService");
 const authService = require("../services/authService");
 
@@ -39,6 +39,8 @@ exports.put = async (req, res, next) => {
   eventService.validateEventData(req.body, res);
 
   try {
+    const token = req.body.token || req.query.token || req.headers["x-access-token"];
+
     eventService.updateEvent(req.params.id, req.body, token, res);
   } catch (error) {
     errorResponse.error500(res);
