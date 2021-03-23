@@ -2,6 +2,7 @@
 
 const ValidationContract = require("../validation/contractValidators.js");
 const repository = require("../repositories/eventRepository.js");
+const errorResponse = require('../services/errorResponse');
 const eventService = require("../services/eventService");
 const authService = require("../services/authService");
 
