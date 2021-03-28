@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 router.get("/", controller.get);
-router.get("/:id", authService.authorize, controller.getById);
+router.get("/:id", controller.getByUser);
 router.post("/", authService.authorize, controller.post);
 router.put("/:id", authService.authorize, controller.put);
-router.delete("/:id", controller.delete);
+router.delete("/:id", authService.authorize, controller.delete);
 
 module.exports = router;
