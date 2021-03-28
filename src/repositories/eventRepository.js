@@ -4,12 +4,12 @@ const mongoose = require('mongoose')
 const Event = mongoose.model('Event')
 
 exports.get = async () => {
-  const res = await Event.find({});
+  const res = await Event.find({}).populate('user');
   return res;
 }
 
-exports.getById = async (id) => {
-  const res = await Event.findById(id);
+exports.getByUser = async (id) => {
+  const res = await Event.find({user: id});
   return res;
 }
 

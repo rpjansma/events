@@ -9,8 +9,8 @@ exports.getAllEvents = async (res) => {
   return res.status(200).send(data);
 };
 
-exports.getEventById = async (data, res) => {
-  let payload = await repository.getById(data);
+exports.getEventByUser = async (data, res) => {
+  let payload = await repository.getByUser(data, res);
   res.status(200).send(payload);
 };
 

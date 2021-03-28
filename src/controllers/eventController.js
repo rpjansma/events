@@ -14,9 +14,9 @@ exports.get = async (req, res, next) => {
   }
 };
 
-exports.getById = async (req, res, next) => {
+exports.getByUser = async (req, res, next) => {
   try {
-    eventService.getEventById(req.params.id, res);
+    eventService.getEventByUser(req.params.id, res);
   } catch (error) {
     errorResponse.error500(res);
   }

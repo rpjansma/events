@@ -61,6 +61,7 @@ exports.authenticateUser = async (data, res) => {
   res.status(201).send({
     token: token,
     data: {
+      id: user.id,
       email: user.email,
       username: user.username,
       role: user.roles
