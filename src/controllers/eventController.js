@@ -39,7 +39,8 @@ exports.put = async (req, res, next) => {
   eventService.validateEventData(req.body, res);
 
   try {
-    const token = req.body.token || req.query.token || req.headers["x-access-token"];
+    const token =
+      req.body.token || req.query.token || req.headers["x-access-token"];
 
     eventService.updateEvent(req.params.id, req.body, token, res);
   } catch (error) {
@@ -49,7 +50,9 @@ exports.put = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   try {
-    eventService.deleteEventById(req.params.id, res);
+    const token = req.body.token || req.query.token || req.headers["x-access-token"];
+
+    eventService.deleteEventById(req.params.id, token, res);
   } catch (error) {
     errorResponse.error500(res);
   }

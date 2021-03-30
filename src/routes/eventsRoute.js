@@ -16,6 +16,6 @@ router.get("/", controller.get);
 router.get("/:id", controller.getByUser);
 router.post("/", authService.authorize, controller.post);
 router.put("/:id", authService.authorize, controller.put);
-router.delete("/:id", authService.authorize, controller.delete);
+router.delete("/:id", controller.delete);
 
 module.exports = router;
