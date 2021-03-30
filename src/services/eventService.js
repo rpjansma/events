@@ -30,7 +30,9 @@ exports.updateEvent = async (id, data, token, res) => {
   });
 };
 
-exports.deleteEventById = async (id, res) => {
+exports.deleteEventById = async (id, token, res) => {
+  const dataToken = await authService.decodeToken(token);
+
   if (!id) {
     res.status(400).send({
       message: "Please inform the event Id you want to delete.",
