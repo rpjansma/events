@@ -14,25 +14,19 @@ exports.getEventByUser = async (data, res) => {
   res.status(200).send(payload);
 };
 
-exports.createEvent = async (data, token, res) => {
-  const dataToken = await authService.decodeToken(token);
-
+exports.createEvent = async (data, res) => {
   await repository.create(data);
   res.status(201).send({ message: "Event created successfully. :)" });
 };
 
-exports.updateEvent = async (id, data, token, res) => {
-  const dataToken = await authService.decodeToken(token);
-
+exports.updateEvent = async (id, data, res) => {
   await repository.update(id, data);
   res.status(200).send({
     message: "Event updated successfully. :)",
   });
 };
 
-exports.deleteEventById = async (id, token, res) => {
-  const dataToken = await authService.decodeToken(token);
-
+exports.deleteEventById = async (id, res) => {
   if (!id) {
     res.status(400).send({
       message: "Please inform the event Id you want to delete.",
