@@ -20,6 +20,10 @@ exports.authorize =  (req, res, next) => {
     });
   } else {
     jwt.verify(token, global.SALT_KEY, function (error, decoded) {
+      //Dá pra setar a info da req (ex. username) dps de decodificar, aqui
+      //Assim você n precisa fazer isso lá na frente e já mantém a info que tira lá do generateToken()
+      //ex.: req.username = decoded.username
+
       if (error) {
         res.status(401).json({
           message: 'Invalid Token.'

@@ -52,17 +52,15 @@ exports.authenticateUser = async (data, res) => {
 
   const token = await authService.generateToken({
     id: user._id,
-    email: user.email,
     username: user.username
   })
 
-  res.setHeader('x-access-token', token); 
+  res.setHeader('x-access-token', token);
 
   res.status(201).send({
     token: token,
     data: {
       id: user.id,
-      email: user.email,
       username: user.username,
       role: user.roles
     }
@@ -87,12 +85,9 @@ exports.refreshUserToken = async (data, token, res) => {
     username: user.username
   })
 
+  //Response must send only the needed info. Cuz u can decode the token on front-end.
   res.status(201).send({
     token: token,
-    data: {
-      email: user.email,
-      username: user.username
-    }
   });
 }
 
