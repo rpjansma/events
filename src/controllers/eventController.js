@@ -16,9 +16,9 @@ exports.get = async (req, res, next) => {
 
 exports.getByUser = async (req, res, next) => {
   try {
-    eventService.getEventByUser(req.params.id, res);
-  } catch (error) {
-    errorResponse.error500(res);
+    eventService.getEventByUser(req.params.id, res); //O ID deve ser passado pelo token, via HEADER. Já que o ID expostp
+  } catch (error) {                                  //pode gerar alteração de outros eventos que não do usuário esperado
+    errorResponse.error500(res);                     //isso gera insegurança. EXTRAIR ID DO TOKEN
   }
 };
 
