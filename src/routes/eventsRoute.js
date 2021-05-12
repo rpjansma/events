@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-router.get("/", controller.get);
-router.get("/:id", controller.getByUser);
+router.get("/", authService.authorize, controller.get);
+router.get("/:id", authService.authorize, controller.getByUser);
 router.post("/", authService.authorize, controller.post);
 router.put("/:id", authService.authorize, controller.put);
 router.delete("/:id", authService.authorize, controller.delete);
