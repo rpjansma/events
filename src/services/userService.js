@@ -62,7 +62,7 @@ exports.authenticateUser = async (data, res) => {
     data: {
       id: user.id,
       username: user.username,
-      role: user.roles
+      role: user.roles,
     }
   });
 }
