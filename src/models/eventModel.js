@@ -26,6 +26,16 @@ const schema = new Schema({
     required: true
   },
 
+  sector: {
+    type: String,
+    required: false
+  },
+
+  local: {
+    type: String,
+    required: false
+  },
+
 });
 
 module.exports = mongoose.model('Event', schema)

@@ -40,7 +40,7 @@ exports.refreshToken = async (req, res, next) => {
   try {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-    userService.refreshUserToken(req.body, token, res);
+    userService.refreshUserToken(token, res);
   } catch (error) {
     errorResponse.error500(res);
   }

@@ -9,6 +9,11 @@ const schema = new Schema({
     required: true,
   },
 
+  fullname: {
+    type: String,
+    required: false,
+  },
+
   email: {
     type: String,
   },
@@ -16,6 +21,11 @@ const schema = new Schema({
   password: {
     type: String,
     required: true
+  },
+
+  birthdate: {
+    type: Date,
+    required: false
   },
 
   roles: [{

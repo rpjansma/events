@@ -27,8 +27,10 @@ exports.dataValidation = (data, res) => {
 exports.createUser = async (data, res) => {
   await repository.create({
     username: data.username,
+    fullname: data.fullname,
     email: data.email,
     password: md5(data.password + global.SALT_KEY),
+    birthdate: data.birthdate,
     roles: ["user"]
   });
 
@@ -67,7 +69,7 @@ exports.authenticateUser = async (data, res) => {
   });
 }
 
-exports.refreshUserToken = async (data, token, res) => {
+exports.refreshUserToken = async (token, res) => {
   const dataToken = await authService.decodeToken(token);
 
   const user = await repository.getById(dataToken.id);
@@ -79,11 +81,13 @@ exports.refreshUserToken = async (data, token, res) => {
     return;
   }
 
+
   const tokenData = await authService.generateToken({
     id: user._id,
-    email: user.email,
     username: user.username
   })
+
+  res.setHeader('x-access-token', tokenData);
 
   //Response must send only the needed info. Cuz u can decode the token on front-end.
   res.status(201).send({
