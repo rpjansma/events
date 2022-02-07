@@ -18,8 +18,8 @@ exports.post = async (req, res, next) => {
 
   emailService.send(
     req.body.email,
-    'Teste do Email',
-    global.EMAIL_TMPL.replace('{0}', req.body.name)
+    'Título do Email',
+    'Texto do corpo do email.'
   )
   try {
     userService.createUser(req.body, res);

@@ -7,6 +7,9 @@ let fromMail = 'events.ap.eye@gmail.com';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
       user: fromMail ,
       pass: 'senhadoemail'
@@ -26,6 +29,5 @@ exports.send = async (to, subject, body) => {
     if (error) {
         console.log(error);
     }
-    console.log(response)
   });
 }
