@@ -18,8 +18,8 @@ exports.post = async (req, res, next) => {
 
   emailService.send(
     req.body.email,
-    'Título do Email',
-    'Texto do corpo do email.'
+    'Events API',
+    'Bem-vindo à Events API. Aqui sua presença será um evento ( ͡° ͜ʖ ͡°)'
   )
   try {
     userService.createUser(req.body, res);
