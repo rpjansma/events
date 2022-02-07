@@ -16,11 +16,11 @@ exports.get = async (req, res, next) => {
 exports.post = async (req, res, next) => {
   userService.dataValidation(req.body, res);
 
-  //emailService.send(
-    //  req.body.email,
-    //  'Calendar API',
-    //  global.EMAIL_TMPL.replace('{0}', req.body.name));
-
+  emailService.send(
+    req.body.email,
+    'Events API',
+    'Bem-vindo à Events API. Aqui sua presença será um evento ( ͡° ͜ʖ ͡°)'
+  )
   try {
     userService.createUser(req.body, res);
   } catch (error) {
