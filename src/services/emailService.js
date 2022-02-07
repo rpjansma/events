@@ -1,13 +1,31 @@
 'use strict';
 
 let config = require('../config.js')
-let sendgrid = require('sendgrid')(config.sendgridKey);
+const nodemailer = require('nodemailer');
+
+let fromMail = 'events.ap.eye@gmail.com';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: fromMail ,
+      pass: 'senhadoemail'
+  }
+  });
+
 
 exports.send = async (to, subject, body) => {
-  sendgrid.send({
+  let mailOptions = {
+    from: fromMail,
     to: to,
-    from: 'rpjansma@gmail.com',
     subject: subject,
-    html: body
+    text: body
+    };
+
+  transporter.sendMail(mailOptions, (error, response) => {
+    if (error) {
+        console.log(error);
+    }
+    console.log(response)
   });
 }

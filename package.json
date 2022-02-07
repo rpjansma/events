@@ -19,6 +19,7 @@
     "jsonwebtoken": "^7.4.0",
     "md5": "^2.3.0",
     "mongoose": "^5.11.18",
+    "nodemailer": "^6.7.2",
     "nodemon": "^2.0.7",
     "sendgrid": "^2.0.0"
   }
