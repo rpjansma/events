@@ -18,7 +18,7 @@ const User = require("./models/userModel.js");
 const indexRoutes = require("./routes/indexRoute");
 const eventsRoutes = require("./routes/eventsRoute");
 const usersRoutes = require("./routes/usersRoute");
-const ipcaRoutes = require("./routes/ipcaRoute");
+const economicsRoutes = require("./routes/economicsRoute");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,6 +38,6 @@ app.use(function (req, res, next) {
 app.use("/", indexRoutes);
 app.use("/events", eventsRoutes);
 app.use("/users", usersRoutes);
-app.use("/ipca", ipcaRoutes);
+app.use("/economics", economicsRoutes);
 
 module.exports = app;
