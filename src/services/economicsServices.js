@@ -48,7 +48,7 @@ exports.getPtax = async (initialDate, finalDate, res) => {
 };
 
 exports.getPib = async (initialDate, finalDate, res) => {
-  let ipcaData = [];
+  let pibData = [];
 
   await axios
     .get(
@@ -60,16 +60,17 @@ exports.getPib = async (initialDate, finalDate, res) => {
     .then((res) => {
       let info;
       for (info of res.data) {
-        ipcaData.push(info);
+        pibData.push(info);
       }
     })
     .catch((error) => {
       console.error(error);
     });
-  return res.status(200).send(ipcaData);
+  return res.status(200).send(pibData);
 };
+
 exports.getIbovespa = async (initialDate, finalDate, res) => {
-  let ipcaData = [];
+  let ibovespaData = [];
 
   await axios
     .get(
@@ -81,21 +82,21 @@ exports.getIbovespa = async (initialDate, finalDate, res) => {
     .then((res) => {
       let info;
       for (info of res.data) {
-        ipcaData.push(info);
+        ibovespaData.push(info);
       }
     })
     .catch((error) => {
       console.error(error);
     });
-  return res.status(200).send(ipcaData);
+  return res.status(200).send(ibovespaData);
 };
 
 exports.getCdi = async (initialDate, finalDate, res) => {
-  let ipcaData = [];
+  let cdiData = [];
 
   await axios
     .get(
-      "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4391/dados?formato=json&dataInicial=" +
+      "https://api.bcb.gov.br/dados/serie/bcdata.sgs.12/dados?formato=json&dataInicial=" +
         initialDate +
         "&dataFinal=" +
         finalDate
@@ -103,11 +104,11 @@ exports.getCdi = async (initialDate, finalDate, res) => {
     .then((res) => {
       let info;
       for (info of res.data) {
-        ipcaData.push(info);
+        cdiData.push(info);
       }
     })
     .catch((error) => {
       console.error(error);
     });
-  return res.status(200).send(ipcaData);
+  return res.status(200).send(cdiData);
 };
