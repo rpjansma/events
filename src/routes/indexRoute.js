@@ -7,7 +7,7 @@ const router = express.Router();
 const route = router.get('/', (req, res, next) => {
   res.status(200).send({
     title: "Events API",
-    version: "1.0.0"
+    version: "2.0.0"
   });
 });
 
