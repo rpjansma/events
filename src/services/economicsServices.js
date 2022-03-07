@@ -89,3 +89,25 @@ exports.getIbovespa = async (initialDate, finalDate, res) => {
     });
   return res.status(200).send(ipcaData);
 };
+
+exports.getCdi = async (initialDate, finalDate, res) => {
+  let ipcaData = [];
+
+  await axios
+    .get(
+      "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4391/dados?formato=json&dataInicial=" +
+        initialDate +
+        "&dataFinal=" +
+        finalDate
+    )
+    .then((res) => {
+      let info;
+      for (info of res.data) {
+        ipcaData.push(info);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return res.status(200).send(ipcaData);
+};
