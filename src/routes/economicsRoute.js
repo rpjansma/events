@@ -15,5 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/ipca", ipcaController.get);
 router.get("/ptax", ptaxController.get);
 router.get("/pib", pibController.get);
+router.get("/ibovespa", pibController.get);
 
 module.exports = router;
