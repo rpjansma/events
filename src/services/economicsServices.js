@@ -2,6 +2,8 @@
 
 const axios = require("axios");
 
+const moment = require("moment");
+
 exports.getIpca = async (initialDate, finalDate, res) => {
   let ipcaData = [];
 
@@ -22,29 +24,6 @@ exports.getIpca = async (initialDate, finalDate, res) => {
       console.error(error);
     });
   return res.status(200).send(ipcaData);
-};
-
-exports.getPtax = async (initialDate, finalDate, res) => {
-  let ptaxData = [];
-
-  await axios
-    .get(
-      "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial='" +
-        initialDate +
-        "',dataFinalCotacao='" +
-        finalDate +
-        "')?$format=json"
-    )
-    .then((res) => {
-      let info;
-      for (info of res.data.value) {
-        ptaxData.push(info);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  return res.status(200).send(ptaxData);
 };
 
 exports.getPib = async (initialDate, finalDate, res) => {
@@ -112,3 +91,32 @@ exports.getCdi = async (initialDate, finalDate, res) => {
     });
   return res.status(200).send(cdiData);
 };
+
+exports.getPtax = async (initialDate, finalDate, res) => {
+  let ptaxData = [];
+
+
+  await axios
+    .get(
+      "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial='" +
+        convertDateWithSlash(initialDate) +
+        "',dataFinalCotacao='" +
+        convertDateWithSlash(finalDate) +
+        "')?$format=json"
+    )
+    .then((res) => {
+      let info;
+      for (info of res.data.value) {
+        ptaxData.push(info);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return res.status(200).send(ptaxData);
+};
+
+function convertDateWithSlash(dateStr) {
+  const [day, month, year] = dateStr.split("/")
+  return  month + "-" + day + "-" + year
+}
