@@ -13,6 +13,7 @@ mongoose.connect(config.connectionString);
 //Models load
 const Event = require("./models/eventModel.js");
 const User = require("./models/userModel.js");
+const EventLog = require("./models/eventLogModel.js");
 
 //Routes load
 const indexRoutes = require("./routes/indexRoute");

@@ -1,26 +1,27 @@
 "use strict";
 
 const ValidationContract = require("../validation/contractValidators.js");
-const repository = require("../repositories/eventRepository.js");
-const authService = require("../services/authService");
+const eventRepository = require("../repositories/eventRepository.js");
+const eventLogRepository = require("../repositories/eventLogRepository.js");
 
 exports.getAllEvents = async (res) => {
-  let data = await repository.get();
+  let data = await eventRepository.get();
   return res.status(200).send(data);
 };
 
 exports.getEventByUser = async (data, res) => {
-  let payload = await repository.getByUser(data, res);
+  eventLogRepository.createEventLog()
+  let payload = await eventRepository.getByUser(data, res);
   res.status(200).send(payload);
 };
 
 exports.createEvent = async (data, res) => {
-  await repository.create(data);
+  await eventRepository.create(data);
   res.status(201).send({ message: "Event created successfully. :)" });
 };
 
 exports.updateEvent = async (id, data, res) => {
-  await repository.update(id, data);
+  await eventRepository.update(id, data);
   res.status(200).send({
     message: "Event updated successfully. :)",
   });
@@ -33,7 +34,7 @@ exports.deleteEventById = async (id, res) => {
     });
   }
 
-  await repository.delete(id);
+  await eventRepository.delete(id);
   res.status(200).send({
     message: "Event removed successfully.",
   });
