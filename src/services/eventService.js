@@ -10,8 +10,18 @@ exports.getAllEvents = async (res) => {
 };
 
 exports.getEventByUser = async (data, res) => {
-  eventLogRepository.createEventLog()
-  let payload = await eventRepository.getByUser(data, res);
+  let payload = await eventRepository.getByUser(data);
+  res.status(200).send(payload);
+};
+
+exports.getEventLogByUser = async (data, res) => {
+  let payload = await eventLogRepository.getEventLogByUser(data);
+  res.status(200).send(payload);
+};
+
+exports.getEventById = async (eventId, userId, res) => {
+  await eventLogRepository.createEventLog(eventId, userId);
+  let payload = await eventRepository.getByEventId(eventId, res);
   res.status(200).send(payload);
 };
 

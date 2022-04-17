@@ -8,7 +8,12 @@ exports.get = async () => {
   return res;
 }
 
-exports.createEventLog = async (data) => {
-  let event = new Event();
+exports.createEventLog = async (eventId, userId) => {
+  let event = new Event({event:eventId, user: userId});
   await event.save();
+}
+
+exports.getEventLogByUser = async (userId) => {
+  const res = await Event.find({user: userId});
+  return res;
 }
