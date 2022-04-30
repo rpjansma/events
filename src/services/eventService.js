@@ -19,6 +19,11 @@ exports.getEventLogByUser = async (data, res) => {
   res.status(200).send(payload);
 };
 
+exports.deleteEventLogByUser = async (data, res) => {
+  let payload = await eventLogRepository.deleteEventLogByUser(data);
+  res.status(200).send(payload);
+};
+
 exports.getEventById = async (eventId, userId, res) => {
   await eventLogRepository.createEventLog(eventId, userId);
   let payload = await eventRepository.getByEventId(eventId, res);

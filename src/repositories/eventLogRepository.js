@@ -14,6 +14,10 @@ exports.createEventLog = async (eventId, userId) => {
 }
 
 exports.getEventLogByUser = async (userId) => {
-  const res = await Event.find({user: userId});
+  const res = await Event.find({user: userId}).populate("event");
   return res;
+}
+
+exports.deleteEventLogByUser = async (eventLogId) => {
+  await Event.findByIdAndRemove(eventLogId);
 }

@@ -38,6 +38,15 @@ exports.getEventLogByUser = async (req, res, next) => {
   }
 };
 
+exports.deleteEventLogByUser = async (req, res, next) => {
+  try {
+    eventService.deleteEventLogByUser(req.params.id, res); //O ID deve ser passado pelo token, via HEADER. Já que o ID expostp
+  } catch (error) {                                  //pode gerar alteração de outros eventos que não do usuário esperado
+    errorResponse.error500(res);
+                      //isso gera insegurança. EXTRAIR ID DO TOKEN
+  }
+};
+
 exports.post = async (req, res, next) => {
   eventService.validateEventData(req.body, res);
 
