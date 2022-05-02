@@ -29,6 +29,8 @@ exports.update = async (id, data) => {
       title: data.title,
       start: data.start,
       end: data.end,
+      sector: data.sector,
+      local: data.local
     },
   });
 };
